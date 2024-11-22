@@ -11,7 +11,15 @@ terraform {
 provider "azurerm" {
   features {}
 }
-
+# move our terraform state file to a blob storage
+terraform{
+  backend "azurerm" {
+    resource_group_name = "tf_rg_storage"
+    storage_account_name = "tfstorageaccountpsbhatti"
+    container_name ="tfstatecontainer"
+    key= "terraform.tfstate"
+  }
+}
 # Create a Resource Group
 resource "azurerm_resource_group" "tf-test" {
   name     = "tfmainrg"
